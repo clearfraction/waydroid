@@ -1,0 +1,32 @@
+From 7033a0eb8dac0b1b92ec07760125d30eac75bf52 Mon Sep 17 00:00:00 2001
+From: K1ngfish3r <trulyihu@gmail.com>
+Date: Wed, 19 Jun 2024 19:36:07 +0800
+Subject: [PATCH waydroid] waydroid: Autospec creation for version 1.4.2
+
+---
+ make_install_args | 1 -
+ release           | 2 +-
+ waydroid.spec     | 8 ++++----
+ 3 files changed, 5 insertions(+), 6 deletions(-)
+ delete mode 100644 make_install_args
+
+diff --git a/waydroid.spec b/waydroid.spec
+index c10e69b..11415c9 100644
+--- a/waydroid.spec
++++ b/waydroid.spec
+@@ -95,11 +95,11 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+ FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+ LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
+ rm -rf %{buildroot}
+ export GOAMD64=v2
+ GOAMD64=v2
+-%make_install DESTDIR=%{buildroot} PREFIX=/usr LIBDIR=/usr/lib64
++%make_install
+ 
+ %files
+ %defattr(-,root,root,-)
+-- 
+2.45.2
+
+
