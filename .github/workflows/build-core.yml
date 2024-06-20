@@ -38,8 +38,6 @@ jobs:
           repo: clearfraction/lxc
           workflow: build.yml
           check_artifacts: true          
-      - name: Extract artifacts
-        run: pwd && ls -l && find . -name artifact ; ls -lR ./artifact; file ./artifact
       - name: Building a package
         run: |
           curl -LO https://raw.githubusercontent.com/clearfraction/tools/master/build-core.sh && chmod +x build-core.sh
@@ -49,4 +47,8 @@ jobs:
         with:
           path: RPMS/*.rpm
       - name: Extract artifacts
-        run: pwd && ls -l && find . -name artifact ; ls -lR ./artifact; file ./artifact
+        run: mv RPMS/*.rpm artifact/
+      - name: Upload Waydroid artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: artifact
