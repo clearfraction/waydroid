@@ -48,3 +48,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: RPMS/*.rpm
+      - name: Extract artifacts
+        run: pwd && ls -l && find . -name artifact ; ls -lR ./artifact; file ./artifact
