@@ -51,4 +51,5 @@ jobs:
       - name: Upload Waydroid artifacts
         uses: actions/upload-artifact@v2
         with:
+          name: waydroid-bundle
           path: /tmp/waydroid-bundle
