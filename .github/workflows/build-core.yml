@@ -47,7 +47,7 @@ jobs:
         with:
           path: RPMS/*.rpm
       - name: Extract artifacts
-        run:  mkdir /tmp/waydroid-bundle && cp -r RPMS/*.rpm artifact/*rpm /tmp/waydroid-bundle/
+        run:  mkdir /tmp/waydroid-bundle && for rpm in RPMS/*.rpm artifact/*rpm; do rpm2cpio "$rpm" | cpio -D /tmp/waydroid-bundle -idm; done
       - name: Upload Waydroid artifacts
         uses: actions/upload-artifact@v2
         with:
