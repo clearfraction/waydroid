@@ -32,6 +32,14 @@ jobs:
           repo: clearfraction/pyclip
           workflow: build-core.yml
           check_artifacts: true
+      - name: Download artifact - lxc
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          repo: clearfraction/lxc
+          workflow: build.yml
+          check_artifacts: true          
+      - name: Extract artifacts
+        run: pwd && ls -l && find . -name artifact
       - name: Building a package
         run: |
           curl -LO https://raw.githubusercontent.com/clearfraction/tools/master/build-core.sh && chmod +x build-core.sh
@@ -40,5 +48,3 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: RPMS/*.rpm
-      - name: Extract artifacts
-        run: ls -lR /home/artifact*
