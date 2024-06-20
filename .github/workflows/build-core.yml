@@ -16,3 +16,29 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: RPMS/*.rpm
+      - name: Download artifact - libglibutil
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          repo: clearfraction/libglibutil
+          workflow: build-core.yml
+          check_artifacts: true
+      - name: Download artifact - libgbinder
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          repo: clearfraction/libgbinder
+          workflow: build.yml
+          check_artifacts: true
+      - name: Download artifact - gbinder-python
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          repo: clearfraction/gbinder-python
+          workflow: build.yml
+          check_artifacts: true
+      - name: Download artifact - pyclip
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          repo: clearfraction/pyclip
+          workflow: build-core.yml
+          check_artifacts: true
+      - name: Extract artifacts
+        run: mv RPMS/*.rpm /home/artifact/ ; ls -lR /home/artifact
