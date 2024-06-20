@@ -41,4 +41,4 @@ jobs:
         with:
           path: RPMS/*.rpm
       - name: Extract artifacts
-        run: mv RPMS/*.rpm /home/artifact/ ; ls -lR /home/artifact
+        run: ls -lR /home/artifact*
