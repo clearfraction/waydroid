@@ -47,8 +47,8 @@ jobs:
         with:
           path: RPMS/*.rpm
       - name: Extract artifacts
-        run: sudo mkdir waydroid-bundle && cp -r RPMS/*.rpm artifact/*rpm waydroid-bundle/
+        run:  mkdir /tmp/waydroid-bundle && cp -r RPMS/*.rpm artifact/*rpm /tmp/waydroid-bundle/
       - name: Upload Waydroid artifacts
         uses: actions/upload-artifact@v2
         with:
-          path: waydroid-bundle
+          path: /tmp/waydroid-bundle
