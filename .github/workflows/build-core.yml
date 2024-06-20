@@ -39,7 +39,7 @@ jobs:
           workflow: build.yml
           check_artifacts: true          
       - name: Extract artifacts
-        run: pwd && ls -l && find . -name artifact
+        run: pwd && ls -l && find . -name artifact ; ls -lR ./artifact; file ./artifact
       - name: Building a package
         run: |
           curl -LO https://raw.githubusercontent.com/clearfraction/tools/master/build-core.sh && chmod +x build-core.sh
