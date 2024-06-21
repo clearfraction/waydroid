@@ -1,0 +1,10 @@
+diff --git a/Makefile b/Makefile
+index d1cbc3a..22983a2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-PREFIX := /usr
++PREFIX := /opt/3rd-party/bundles/clearfraction/usr
+ 
+ USE_SYSTEMD ?= 1
+ USE_DBUS_ACTIVATION ?= 1
