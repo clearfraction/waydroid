@@ -8,3 +8,51 @@ index d1cbc3a..22983a2 100644
  
  USE_SYSTEMD ?= 1
  USE_DBUS_ACTIVATION ?= 1
+diff --git a/dbus/id.waydro.Container.service b/dbus/id.waydro.Container.service
+index 26b43d9..afe31c1 100644
+--- a/dbus/id.waydro.Container.service
++++ b/dbus/id.waydro.Container.service
+@@ -1,5 +1,6 @@
+ [D-BUS Service]
+ Name=id.waydro.Container
+-Exec=/usr/bin/waydroid -w container start
++EnvironmentFile=/etc/waydroid/environment
++Exec=/opt/3rd-party/bundles/clearfraction/usr/bin/waydroid -w container start
+ User=root
+ SystemdService=waydroid-container.service
+diff --git a/systemd/waydroid-container.service b/systemd/waydroid-container.service
+index 4a86383..44f80f2 100644
+--- a/systemd/waydroid-container.service
++++ b/systemd/waydroid-container.service
+@@ -4,7 +4,8 @@ Description=Waydroid Container
+ [Service]
+ UMask=0022
+ BusName=id.waydro.Container
+-ExecStart=/usr/bin/waydroid -w container start
++EnvironmentFile=/etc/waydroid/environment
++ExecStart=/opt/3rd-party/bundles/clearfraction/usr/bin/waydroid -w container start
+ 
+ [Install]
+ WantedBy=multi-user.target
+diff --git a/tools/config/__init__.py b/tools/config/__init__.py
+index 002562e..55a0c9f 100644
+--- a/tools/config/__init__.py
++++ b/tools/config/__init__.py
+@@ -36,7 +36,7 @@ defaults = {
+     "vendor_datetime": "0",
+     "preinstalled_images_paths": [
+         "/etc/waydroid-extra/images",
+-        "/usr/share/waydroid-extra/images",
++        "/opt/3rd-party/bundles/clearfraction/usr/share/waydroid-extra/images",
+     ],
+     "suspend_action": "freeze",
+     "mount_overlays": "True",
+@@ -72,7 +72,7 @@ if session_defaults["pulse_runtime_path"] == "None":
+     session_defaults["pulse_runtime_path"] = session_defaults["xdg_runtime_dir"] + "/pulse"
+ 
+ channels_defaults = {
+-    "config_path": "/usr/share/waydroid-extra/channels.cfg",
++    "config_path": "/opt/3rd-party/bundles/clearfraction/usr/share/waydroid-extra/channels.cfg",
+     "system_channel": "https://ota.waydro.id/system",
+     "vendor_channel": "https://ota.waydro.id/vendor",
+     "rom_type": "lineage",
