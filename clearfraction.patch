@@ -8,29 +8,22 @@ index d1cbc3a..22983a2 100644
  
  USE_SYSTEMD ?= 1
  USE_DBUS_ACTIVATION ?= 1
-diff --git a/dbus/id.waydro.Container.service b/dbus/id.waydro.Container.service
-index 26b43d9..afe31c1 100644
---- a/dbus/id.waydro.Container.service
-+++ b/dbus/id.waydro.Container.service
-@@ -1,5 +1,6 @@
- [D-BUS Service]
- Name=id.waydro.Container
--Exec=/usr/bin/waydroid -w container start
-+EnvironmentFile=/etc/waydroid/environment
-+Exec=/opt/3rd-party/bundles/clearfraction/usr/bin/waydroid -w container start
- User=root
- SystemdService=waydroid-container.service
 diff --git a/systemd/waydroid-container.service b/systemd/waydroid-container.service
-index 4a86383..44f80f2 100644
+index 4a86383..1c17e6a 100644
 --- a/systemd/waydroid-container.service
 +++ b/systemd/waydroid-container.service
-@@ -4,7 +4,8 @@ Description=Waydroid Container
+@@ -4,7 +4,13 @@ Description=Waydroid Container
  [Service]
  UMask=0022
  BusName=id.waydro.Container
 -ExecStart=/usr/bin/waydroid -w container start
-+EnvironmentFile=/etc/waydroid/environment
++EnvironmentFile=-/tmp/waydroid.env
++ExecStartPre=sh -c 'env | grep -v "^PATH=" > /tmp/waydroid.env'
++ExecStartPre=sh -c 'echo PYTHONPATH=/opt/3rd-party/bundles/clearfraction/usr/lib/python$(echo /usr/lib/python* | tr -d "/usr/lib/python")/site-packages >> /tmp/waydroid.env'
++ExecStartPre=sh -c 'echo PATH=/usr/bin/haswell:/usr/bin:/usr/local/bin:/opt/3rd-party/bundles/clearfraction/bin:/opt/3rd-party/bundles/clearfraction/usr/bin:/opt/3rd-party/bundles/clearfraction/usr/local/bin:/opt/3rd-party/bin >> /tmp/waydroid.env'
++ExecStartPre=sh -c 'echo LD_LIBRARY_PATH=/usr/lib64:/opt/3rd-party/bundles/clearfraction/usr/lib64:/opt/3rd-party/bundles/clearfraction/usr/local/lib64 >> /tmp/waydroid.env'
 +ExecStart=/opt/3rd-party/bundles/clearfraction/usr/bin/waydroid -w container start
++ExecStartPost=sh -c 'rm /tmp/waydroid.env'
  
  [Install]
  WantedBy=multi-user.target
