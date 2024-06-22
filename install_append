@@ -1,0 +1,2 @@
+cp -a %{buildroot}/opt/3rd-party/bundles/clearfraction/* %{buildroot}/
+rm -rf %{buildroot}/opt
