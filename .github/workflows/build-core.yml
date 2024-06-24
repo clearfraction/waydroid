@@ -47,7 +47,13 @@ jobs:
         with:
           path: RPMS/*.rpm
       - name: Extract artifacts
-        run:  mkdir /tmp/waydroid-bundle && for rpm in RPMS/*.rpm artifact/*rpm; do rpm2cpio "$rpm" | cpio -D /tmp/waydroid-bundle -idm; done && cd /tmp/ && tar cfz waydroid-bundle.tar.gz waydroid-bundle 
+        run: |
+          mkdir /tmp/waydroid-bundle && for rpm in RPMS/*.rpm artifact/*rpm; do rpm2cpio "$rpm" | cpio -D /tmp/waydroid-bundle -idm; done
+          curl -L https://raw.githubusercontent.com/clearfraction/bundles/master/cf-waydroid-preinstall.sh -o /tmp/waydroid-bundle/usr/bin/cf-waydroid-preinstall.sh
+          curl -L https://raw.githubusercontent.com/clearfraction/bundles/master/cf-waydroid-init.sh -o /tmp/waydroid-bundle/usr/bin/cf-waydroid-init.sh
+          curl -L https://raw.githubusercontent.com/clearfraction/bundles/master/cf-waydroid-uninstall.sh -o /tmp/waydroid-bundle/usr/bin/cf-waydroid-uninstall.sh
+          chmod +x /tmp/waydroid-bundle/usr/bin/{cf-waydroid-preinstall.sh,cf-waydroid-init.sh,cf-waydroid-uninstall.sh}
+          cd /tmp && tar cfz waydroid-bundle.tar.gz waydroid-bundle 
       - name: Upload Waydroid artifacts
         uses: actions/upload-artifact@v2
         with:
